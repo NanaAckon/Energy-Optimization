@@ -428,7 +428,7 @@ print(gt_clientdata)
 
 ### Exploratory Data Analysis In Pyhon 
 In EDA we explored the "gt_clientdata"performing statistical (Descriptives) using python as well  to answer key business questions;
-- Descriptive Statistics with python(Libraries used (
+- Descriptive Statistics with python(Libraries used Pandas,Scipy)
 
 ```Python   
 ######### Business Decisions for GT Client Data #########
