@@ -1,4 +1,4 @@
-# Optimizing Energy Consumption In Steel Manufacturing Plant Analysis
+![image](https://github.com/user-attachments/assets/0e2c150f-d916-4cd9-a541-832125b7b849)# Optimizing Energy Consumption In Steel Manufacturing Plant Analysis
 
 ### Project Overview
 
@@ -426,6 +426,58 @@ print(gt_clientdata)
 
 ```
 
+### Data Cleaning With Python
+- Handling Missing Values
+Dataset had 92 missing values in total from 4 columns(section, production MT, lab_rep_time, prev_tap_time)
+
+ --Looking out for Missing values
+![image](https://github.com/user-attachments/assets/dd980ba8-a0ce-42ac-ac1f-0faf4c5b15ca)
+
+ --Handling missing Values With imputation Method
+
+ ```Python
+#################### Missing Values - Imputation ###########################
+
+import pandas as pd
+import numpy as np
+from sklearn.impute import SimpleImputer
+
+# Mode Imputer for section
+mode_imputer = SimpleImputer(missing_values = np.nan, strategy = 'most_frequent')
+gt_clientdata['section'] = gt_clientdata['section'].astype(str)
+gt_clientdata["section"] = pd.DataFrame(mode_imputer.fit_transform(gt_clientdata[["section"]]))
+gt_clientdata["section"].isna().sum()
+
+
+gt_clientdata.isna().sum()
+
+# Mean Imputer for production_mt
+mean_imputer = SimpleImputer(missing_values = np.nan, strategy = 'mean')
+gt_clientdata["production_mt"] = pd.DataFrame(mean_imputer.fit_transform(gt_clientdata[["production_mt"]]))
+gt_clientdata["production_mt"].isna().sum()
+
+#lab_rep_time
+gt_clientdata['lab_rep_time'] = gt_clientdata['lab_rep_time'].fillna(method='bfill')
+gt_clientdata['lab_rep_time'].isna().sum()
+
+#prev_tap_time
+gt_clientdata['prev_tap_time'] = gt_clientdata['prev_tap_time'].fillna(method = 'bfill')
+gt_clientdata['prev_tap_time'].isna().sum()
+```
+
+- Outlier Detection And Treatment with Winsorization
+For detecting outliers boxplot was used to identify outliers and winsorization which involves defining the maximum and minimum of IQR and replacing outliers with them. This was performed on all numeric columns of the dataset.Libraries like seaborn(for visualization) to detect outliers with boxplot, and feature_engine.outliers for winsorizer
+for treating outliers.
+
+![image](https://github.com/user-attachments/assets/e63b5188-5262-41cc-90fb-bbf725b01b19)
+
+![image](https://github.com/user-attachments/assets/e61a3021-6cf7-4a5c-99c1-498746ed6480)
+
+![image](https://github.com/user-attachments/assets/a059337e-0e51-4a44-acb1-04a9c395e2c3)
+
+
+
+
 ### Exploratory Data Analysis In Pyhon 
 In EDA we explored the "gt_clientdata"performing statistical (Descriptives) using python as well  to answer key business questions;
 - Descriptive Statistics with python(Libraries used Pandas,Scipy)
@@ -551,3 +603,58 @@ gt_clientdata['Energy per MT'] = gt_clientdata['energy'] / gt_clientdata['produc
 energy_efficiency_per_grade = gt_clientdata.groupby('grade')['Energy per MT'].mean()
 print("Energy efficiency per grade:\n", energy_efficiency_per_grade)
 ```
+
+### Data Visualizations
+-Tableau
+![Screenshot 2024-10-21 002459](https://github.com/user-attachments/assets/472c28a5-b15b-4230-a92f-34605398021d)
+
+![Screenshot 2024-10-21 002809](https://github.com/user-attachments/assets/59f0eb9a-7eb5-4f89-8136-a5999ed70f48)
+
+![Screenshot 2024-10-21 003103](https://github.com/user-attachments/assets/f217e8be-742c-4799-95b1-be49ceed0ae7)
+
+
+- Google Looker Studio
+![Screenshot 2024-10-21 004410](https://github.com/user-attachments/assets/241d2704-9496-4493-8070-8d7253e98bd0)
+
+- Excel charts
+![Screenshot 2024-10-21 000904](https://github.com/user-attachments/assets/56cb677f-5a09-4c1b-b4eb-52611df851ef)
+
+![Screenshot 2024-10-21 001120](https://github.com/user-attachments/assets/a3746405-aff6-4904-a324-69a40450fec2)
+
+![Screenshot 2024-10-21 001326](https://github.com/user-attachments/assets/949a8afe-e1ce-4740-8b3a-11636a8b120f)
+
+## Insights And Findings
+
+####  Types of Grades: How many types of grades of steel are present in the dataset?
+   - There are 328 unique Grades of Steels
+
+###   Raw Materials Per Grade: For manufacturing these types of grades of steel which types of raw materials are mixed together and how many?
+   -  Data showed raw materials per grade with Grade type S48CS1V  being the grade of steel that uses most raw materials for production and Grade type ICSS-1218- using the least raw materials.
+
+###  Average Energy Consumption per Grade: Which grade has the highest average energy consumption? (At Top 5)
+   |GRADE|AVERAGE ENERGY CONSUMPTION|
+   |-----|--------------------------|
+   |40MnSiVS6|26465.2825|
+   |42CRMOS4|	23430.855|
+   |AISI410	|	21372.3|
+   |SAE9310| 16707.42|
+   |SAE4140|	15716.85|
+
+### 	Most Energy Consuming Grade: Which grade of steel during manufacturing process consumes more energy or electricity?
+ -  Grade of steel consuming the most energy: 40MnSiVS6
+
+### 	Least Energy Consuming Grade: Which grades of steel during manufacturing process consumes less energy or electricity?
+ -   Grade of steel consuming the least energy: AISI435MOH
+
+•	Production Time Analysis: Determining the average melting and total cycle time per grade.
+
+### Shift Efficiency: Which shift has the highest energy consumption? 
+ -  Shift with the highest energy consumption: C with 124638333.881 units of energy consumed
+
+
+
+
+
+
+
+
