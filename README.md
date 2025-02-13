@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/0e2c150f-d916-4cd9-a541-832125b7b849)# Optimizing Energy Consumption In Steel Manufacturing Plant Analysis
+# Optimizing Energy Consumption In Steel Manufacturing Plant Analysis
 
 ### Project Overview
 
